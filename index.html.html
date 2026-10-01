@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinícius Augusto Teodoro — Portfólio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12151b;
+    --bg-panel: #1a1f28;
+    --bg-panel-alt: #1f2530;
+    --copper: #c9822e;
+    --copper-bright: #e2a256;
+    --teal: #5fd3c4;
+    --text: #ece9e2;
+    --text-muted: #8e96a3;
+    --line: #2c3340;
+    --line-bright: #3a4353;
+    --radius: 10px;
+    --max: 980px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(95,211,196,0.06), transparent),
+      radial-gradient(900px 500px at 90% 10%, rgba(201,130,46,0.08), transparent),
+      var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+  }
+
+  a{color:inherit;}
+  :focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- background circuit board texture ---------- */
+  .board-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.5;
+  }
+  .board-bg svg{width:100%;height:100%;}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;
+    top:0;
+    z-index:20;
+    backdrop-filter:blur(10px);
+    background:rgba(18,21,27,0.82);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--max);
+    margin:0 auto;
+  }
+  .nav-id{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--text-muted);
+  }
+  .nav-id .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 8px var(--teal);
+  }
+  nav.links{
+    display:flex;
+    gap:24px;
+    font-size:13px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  nav.links a{
+    color:var(--text-muted);
+    text-decoration:none;
+    padding-bottom:2px;
+    border-bottom:1px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  nav.links a:hover{color:var(--copper-bright);border-color:var(--copper-bright);}
+  @media (max-width:640px){ nav.links{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    z-index:1;
+    padding:88px 0 64px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--copper-bright);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;height:1px;
+    background:var(--copper-bright);
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.4rem);
+    font-weight:600;
+    line-height:1.08;
+    max-width:14ch;
+  }
+  .hero h1 span{color:var(--copper-bright);}
+  .hero p.lead{
+    margin-top:22px;
+    max-width:56ch;
+    font-size:1.05rem;
+    color:var(--text-muted);
+  }
+  .hero-meta{
+    margin-top:34px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .pill{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text);
+    border:1px solid var(--line-bright);
+    background:var(--bg-panel);
+    padding:7px 13px;
+    border-radius:999px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);}
+
+  /* ---------- section scaffolding ---------- */
+  section{
+    position:relative;
+    z-index:1;
+    padding:64px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .sec-num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--copper);
+    font-size:13px;
+  }
+  .sec-head h2{
+    font-size:1.5rem;
+    font-weight:600;
+  }
+  .sec-head .rule{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, var(--line-bright), transparent);
+  }
+
+  /* ---------- sobre ---------- */
+  .sobre-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+  }
+  @media (max-width:760px){ .sobre-grid{grid-template-columns:1fr;} }
+  .sobre-grid p{color:var(--text-muted); margin:0 0 14px;}
+  .sobre-grid p strong{color:var(--text); font-weight:500;}
+  .trace-card{
+    border:1px solid var(--line-bright);
+    background:var(--bg-panel);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .trace-card h3{
+    font-size:0.78rem;
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-muted);
+    margin-bottom:16px;
+  }
+  .trace-list{list-style:none;margin:0;padding:0;}
+  .trace-list li{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    padding:9px 0;
+    border-top:1px solid var(--line);
+  }
+  .trace-list li:first-child{border-top:none;}
+  .trace-list li span:first-child{color:var(--text-muted);}
+  .trace-list li span:last-child{font-family:'IBM Plex Mono', monospace; font-size:12.5px;}
+
+  /* ---------- serviços (chip cards) ---------- */
+  .chips{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+  }
+  @media (max-width:640px){ .chips{grid-template-columns:1fr;} }
+  .chip{
+    position:relative;
+    border:1px solid var(--line-bright);
+    background:var(--bg-panel);
+    border-radius:8px;
+    padding:22px 22px 20px;
+    transition:border-color .2s, transform .2s;
+  }
+  .chip:hover{border-color:var(--copper); transform:translateY(-2px);}
+  .chip::before, .chip::after{
+    content:"";
+    position:absolute;
+    top:14px;
+    width:12px;height:1px;
+    background:var(--line-bright);
+  }
+  .chip::before{left:-12px;}
+  .chip::after{right:-12px;}
+  .chip .pin{
+    position:absolute;top:12px;
+    width:5px;height:5px;border-radius:50%;
+    background:var(--teal);
+  }
+  .chip.pin-l .pin{left:-14.5px;}
+  .chip.pin-r .pin{right:-14.5px;}
+  .chip .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--copper-bright);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .chip h3{
+    font-size:1.05rem;
+    font-weight:600;
+    margin:10px 0 8px;
+  }
+  .chip p{
+    color:var(--text-muted);
+    font-size:14px;
+    margin:0;
+  }
+
+  /* ---------- habilidades ---------- */
+  .skills-trace{
+    position:relative;
+    padding-left:28px;
+  }
+  .skills-trace::before{
+    content:"";
+    position:absolute;
+    left:4px; top:6px; bottom:6px;
+    width:1px;
+    background:linear-gradient(var(--copper), var(--teal));
+  }
+  .skill-row{
+    position:relative;
+    margin-bottom:26px;
+  }
+  .skill-row::before{
+    content:"";
+    position:absolute;
+    left:-28px; top:5px;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--copper-bright);
+  }
+  .skill-row .label{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    margin-bottom:8px;
+  }
+  .skill-row .label span:last-child{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-muted);
+  }
+  .bar{
+    height:5px;
+    border-radius:3px;
+    background:var(--line);
+    overflow:hidden;
+  }
+  .bar i{
+    display:block;
+    height:100%;
+    border-radius:3px;
+    background:linear-gradient(90deg, var(--copper), var(--teal));
+  }
+
+  /* ---------- formação (timeline) ---------- */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .tl-item{
+    display:grid;
+    grid-template-columns:150px 24px 1fr;
+    gap:0;
+  }
+  .tl-item .tl-date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+    padding-top:4px;
+  }
+  .tl-item .tl-rail{
+    position:relative;
+    display:flex;
+    justify-content:center;
+  }
+  .tl-item .tl-rail::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0;
+    width:1px;
+    background:var(--line-bright);
+  }
+  .tl-item:last-child .tl-rail::before{display:none;}
+  .tl-item .tl-rail::after{
+    content:"";
+    position:absolute;
+    top:4px;
+    width:9px;height:9px;
+    border-radius:2px;
+    transform:rotate(45deg);
+    background:var(--bg);
+    border:2px solid var(--teal);
+  }
+  .tl-body{padding:0 0 34px;}
+  .tl-body h3{font-size:1rem; font-weight:600;}
+  .tl-body .place{
+    font-size:13px;
+    color:var(--copper-bright);
+    font-family:'IBM Plex Mono', monospace;
+    margin:4px 0 8px;
+  }
+  .tl-body p{margin:0; color:var(--text-muted); font-size:14px;}
+  .status-badge{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:3px 9px;
+    border-radius:999px;
+    border:1px solid var(--teal);
+    color:var(--teal);
+  }
+
+  /* ---------- certificações ---------- */
+  .cert-cloud{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .cert{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text);
+    background:var(--bg-panel-alt);
+    border:1px solid var(--line-bright);
+    padding:7px 12px;
+    border-radius:6px;
+  }
+  .cert small{color:var(--text-muted); display:block; font-size:10.5px; margin-top:2px;}
+
+  /* ---------- como trabalho ---------- */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{
+    border:1px solid var(--line-bright);
+    background:var(--bg-panel);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+  .step .n{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--copper);
+    font-size:13px;
+    margin-bottom:14px;
+    display:block;
+  }
+  .step h3{font-size:1rem; font-weight:600; margin-bottom:8px;}
+  .step p{color:var(--text-muted); font-size:14px; margin:0;}
+
+  /* ---------- contato / footer ---------- */
+  footer{
+    position:relative;
+    z-index:1;
+    padding:56px 0 48px;
+  }
+  .contact-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:28px;
+  }
+  footer h2{
+    font-size:clamp(1.6rem,4vw,2.2rem);
+    max-width:16ch;
+  }
+  .contact-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .contact-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    text-decoration:none;
+    color:var(--text);
+    border-bottom:1px solid var(--line-bright);
+    padding-bottom:2px;
+    width:fit-content;
+    transition:color .2s, border-color .2s;
+  }
+  .contact-links a:hover{color:var(--copper-bright); border-color:var(--copper-bright);}
+  .foot-note{
+    margin-top:44px;
+    font-size:12px;
+    color:var(--text-muted);
+    font-family:'IBM Plex Mono', monospace;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .chip{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="board-bg" aria-hidden="true">
+  <svg viewBox="0 0 1000 1400" preserveAspectRatio="none">
+    <line x1="60" y1="0" x2="60" y2="1400" stroke="#232a36" stroke-width="1"/>
+    <line x1="940" y1="0" x2="940" y2="1400" stroke="#232a36" stroke-width="1"/>
+    <path d="M60,140 L180,140 L180,260 L360,260" fill="none" stroke="#2a3340" stroke-width="1"/>
+    <path d="M940,420 L800,420 L800,600 L620,600" fill="none" stroke="#2a3340" stroke-width="1"/>
+    <path d="M60,820 L220,820 L220,960" fill="none" stroke="#2a3340" stroke-width="1"/>
+    <path d="M940,1080 L760,1080 L760,1220 L520,1220" fill="none" stroke="#2a3340" stroke-width="1"/>
+    <circle cx="180" cy="140" r="3" fill="#2f3947"/>
+    <circle cx="360" cy="260" r="3" fill="#2f3947"/>
+    <circle cx="800" cy="420" r="3" fill="#2f3947"/>
+    <circle cx="620" cy="600" r="3" fill="#2f3947"/>
+    <circle cx="220" cy="960" r="3" fill="#2f3947"/>
+    <circle cx="520" cy="1220" r="3" fill="#2f3947"/>
+  </svg>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-id"><span class="dot"></span> VAT / T.I. &amp; DADOS</div>
+    <nav class="links">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#formacao">Formação</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Disponível para projetos freelance</div>
+    <h1>Vinícius Augusto <span>Teodoro</span></h1>
+    <p class="lead">
+      Estudante de Sistemas de Informação e técnico em Informática, apoiando pequenos
+      negócios e projetos pessoais com sites simples, planilhas organizadas e primeiros
+      passos em segurança da informação — com atenção a prazo e comunicação clara do início ao fim.
+    </p>
+    <div class="hero-meta">
+      <div class="pill"><span class="dot"></span>Pederneiras, SP</div>
+      <div class="pill"><span class="dot"></span>Graduando em Sistemas de Informação</div>
+      <div class="pill"><span class="dot"></span>10+ certificações concluídas</div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Sobre</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="sobre-grid">
+      <div>
+        <p>Estou construindo minha trajetória em T.I. unindo <strong>formação técnica</strong>,
+        <strong>certificações práticas</strong> e experiência real de rotina de trabalho como
+        Jovem Aprendiz. Gosto de projetos objetivos: entender o que o cliente precisa, entregar
+        algo funcional e explicar o resultado sem complicação técnica desnecessária.</p>
+        <p>Minha base hoje está em <strong>desenvolvimento web (HTML, CSS e lógica de
+        programação)</strong>, <strong>organização e análise de dados em Excel e Power BI</strong>
+        e <strong>fundamentos de segurança da informação</strong> — ideal para quem precisa de
+        tarefas pontuais bem-feitas, sem contratar uma equipe inteira.</p>
+      </div>
+      <div class="trace-card">
+        <h3>Ficha técnica</h3>
+        <ul class="trace-list">
+          <li><span>Localização</span><span>Pederneiras, SP</span></li>
+          <li><span>Área</span><span>T.I. / Dados</span></li>
+          <li><span>Formação atual</span><span>Sistemas de Informação</span></li>
+          <li><span>Idiomas</span><span>Português</span></li>
+          <li><span>Modelo</span><span>Remoto / Freelance</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicos">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Serviços</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="chips">
+      <div class="chip pin-l"><span class="pin"></span>
+        <div class="tag">Web</div>
+        <h3>Criação de sites simples</h3>
+        <p>Páginas institucionais e landing pages em HTML, CSS e JavaScript, com estrutura
+        limpa e foco em carregamento rápido.</p>
+      </div>
+      <div class="chip pin-r"><span class="pin"></span>
+        <div class="tag">Dados</div>
+        <h3>Planilhas e automação em Excel</h3>
+        <p>Organização de dados, fórmulas, controle de estoque e relatórios prontos para uso
+        no dia a dia da sua operação.</p>
+      </div>
+      <div class="chip pin-l"><span class="pin"></span>
+        <div class="tag">BI</div>
+        <h3>Dashboards em Power BI</h3>
+        <p>Painéis visuais simples para acompanhar pedidos, vendas ou indicadores, a partir
+        dos dados que você já tem.</p>
+      </div>
+      <div class="chip pin-r"><span class="pin"></span>
+        <div class="tag">Segurança</div>
+        <h3>Boas práticas de segurança da informação</h3>
+        <p>Orientação inicial sobre proteção de dados e boas práticas digitais para pequenos
+        negócios e times enxutos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Habilidades técnicas</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="skills-trace">
+      <div class="skill-row">
+        <div class="label"><span>HTML &amp; CSS</span><span>sólido</span></div>
+        <div class="bar"><i style="width:80%"></i></div>
+      </div>
+      <div class="skill-row">
+        <div class="label"><span>Lógica de programação &amp; JavaScript</span><span>em desenvolvimento</span></div>
+        <div class="bar"><i style="width:60%"></i></div>
+      </div>
+      <div class="skill-row">
+        <div class="label"><span>Excel (intermediário/avançado)</span><span>sólido</span></div>
+        <div class="bar"><i style="width:80%"></i></div>
+      </div>
+      <div class="skill-row">
+        <div class="label"><span>Power BI &amp; modelagem de dados</span><span>em desenvolvimento</span></div>
+        <div class="bar"><i style="width:55%"></i></div>
+      </div>
+      <div class="skill-row">
+        <div class="label"><span>SQL Server</span><span>fundamentos</span></div>
+        <div class="bar"><i style="width:45%"></i></div>
+      </div>
+      <div class="skill-row">
+        <div class="label"><span>Segurança da informação &amp; C++</span><span>fundamentos</span></div>
+        <div class="bar"><i style="width:40%"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="formacao">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Formação</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2025 — 2028</div>
+        <div class="tl-rail"></div>
+        <div class="tl-body">
+          <h3>Sistemas de Informação</h3>
+          <div class="place">Faculdade FGP · Pederneiras, SP</div>
+          <p>Graduação em andamento, com foco em desenvolvimento, dados e infraestrutura de T.I.</p>
+          <span class="status-badge">Cursando</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 — 2026</div>
+        <div class="tl-rail"></div>
+        <div class="tl-body">
+          <h3>Técnico em Informática</h3>
+          <div class="place">UNINTER · Jaú, SP</div>
+          <p>Formação técnica com base em lógica, redes e fundamentos de desenvolvimento.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 — 2026</div>
+        <div class="tl-rail"></div>
+        <div class="tl-body">
+          <h3>Eletricista Industrial</h3>
+          <div class="place">SENAI · Pederneiras, SP</div>
+          <p>Formação técnica em Elétrica, com raciocínio de sistemas e resolução de problemas
+          aplicado hoje também à área de T.I.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 — 2026</div>
+        <div class="tl-rail"></div>
+        <div class="tl-body">
+          <h3>Jovem Aprendiz</h3>
+          <div class="place">Pedertractor · Pederneiras, SP</div>
+          <p>Rotina de controle de estoque, organização de remessas e acompanhamento de
+          pedidos, com foco em eficiência operacional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certificacoes">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>Certificações</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="cert-cloud">
+      <span class="cert">HTML Básico<small>Fundação Bradesco</small></span>
+      <span class="cert">HTML Avançado<small>Fundação Bradesco</small></span>
+      <span class="cert">Introdução ao CSS<small>Fundação Bradesco</small></span>
+      <span class="cert">HTML e CSS: Ambiente de Desenvolvimento<small>Alura</small></span>
+      <span class="cert">Introdução ao JavaScript<small>Fundação Bradesco</small></span>
+      <span class="cert">Lógica de Programação<small>Fundação Bradesco</small></span>
+      <span class="cert">Criando Sites com HTML, CSS e JavaScript<small>Microsoft</small></span>
+      <span class="cert">Modelagem de Dados<small>Fundação Bradesco</small></span>
+      <span class="cert">Introdução à Análise de Dados com Power BI<small>Fundação Bradesco</small></span>
+      <span class="cert">Excel Intermediário<small>Enap</small></span>
+      <span class="cert">Excel Avançado<small>Enap</small></span>
+      <span class="cert">Fundamentos de TI: Hardware e Software<small>Fundação Bradesco</small></span>
+      <span class="cert">Segurança da Informação<small>Fundação Bradesco</small></span>
+    </div>
+  </section>
+
+  <section id="processo">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Como trabalho</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">01 — Briefing</span>
+        <h3>Entendo o pedido</h3>
+        <p>Conversamos sobre o objetivo, o prazo e o que já existe (dados, referências,
+        conteúdo) antes de começar.</p>
+      </div>
+      <div class="step">
+        <span class="n">02 — Execução</span>
+        <h3>Desenvolvo com atualizações</h3>
+        <p>Mantenho contato durante o projeto para alinhar detalhes e evitar retrabalho no final.</p>
+      </div>
+      <div class="step">
+        <span class="n">03 — Entrega</span>
+        <h3>Reviso e explico o resultado</h3>
+        <p>Entrego o material testado e explico de forma simples como usar ou manter o que foi feito.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer id="contato">
+  <div class="wrap">
+    <div class="contact-grid">
+      <h2>Vamos conversar sobre o seu projeto?</h2>
+      <div class="contact-links">
+        <a href="mailto:teodoro.vinicius10@gmail.com">teodoro.vinicius10@gmail.com</a>
+        <a href="tel:+5514996750475">+55 14 99675-0475</a>
+        <a href="https://www.workana.com" target="_blank" rel="noopener">Perfil no Workana</a>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>Pederneiras, SP</span>
+      <span>Disponível para projetos remotos</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
